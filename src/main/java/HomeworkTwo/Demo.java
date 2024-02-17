@@ -5,6 +5,7 @@ public class Demo {
 
         MyArrayList stringArrayList = new MyArrayList();
         MyArrayList integerArrayList = new MyArrayList();
+        MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
 
         stringArrayList.add("Hello ");
         stringArrayList.add("My ");
@@ -33,5 +34,20 @@ public class Demo {
         integerArrayList.remove(2);
         System.out.println("----remove----");
         integerArrayList.show();
+
+        myLinkedList.add(2);
+        myLinkedList.add(34);
+        myLinkedList.add(24);
+        myLinkedList.add(22);
+        myLinkedList.add(65);
+
+        myLinkedList.show();
+        myLinkedList.size();
+//      myLinkedList.clear();
+
+        myLinkedList.remove(3);
+        myLinkedList.show();
+
+
     }
 }
