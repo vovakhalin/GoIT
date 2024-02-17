@@ -1,6 +1,6 @@
 package HomeworkTwo;
 
-public class MyArrayList <T>{
+public class MyArrayList{
     private Object[] array;
     private int size;
 
@@ -21,11 +21,13 @@ public class MyArrayList <T>{
     }
 
     public void remove(int index) {
-        Object[] newRemoveArray = new Object[array.length];
-        if (index >= 0) System.arraycopy(array, 0, newRemoveArray, 0, index);
-        if (array.length - (index + 1) >= 0)
-            System.arraycopy(array, index + 1, newRemoveArray, index + 1 - 1, array.length - (index + 1));
-        array = newRemoveArray;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Індекс виходить за межі списку");
+        }
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        size--;
 
     }
 
