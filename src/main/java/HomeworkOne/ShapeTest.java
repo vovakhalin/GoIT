@@ -56,9 +56,7 @@ public class ShapeTest {
         Rectangle rectangle = new Rectangle();
         Pentagon pentagon = new Pentagon();
 
-
         ShapePrinter shapePrinter = new ShapePrinter();
-
 
         shapePrinter.printShapeName(circle);
         shapePrinter.printShapeName(square);
