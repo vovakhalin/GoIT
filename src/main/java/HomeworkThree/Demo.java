@@ -1,5 +1,8 @@
 package HomeworkThree;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +39,27 @@ public class Demo {
         } else {
             System.out.println("File doesn't exist");
         }
+
+        File fileGson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        if(fileGson.exists()) {
+            try (BufferedReader br2 = new BufferedReader(new FileReader(fileGson))) {
+                String line2;
+                while ((line2 = br2.readLine()) != null) {
+
+                        System.out.println(line2);
+                    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("File doesn't exist");
+        }
+
+
     }
 
-    File fileJson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
+
 }
