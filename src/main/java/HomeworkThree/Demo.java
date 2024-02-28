@@ -38,4 +38,5 @@ public class Demo {
         }
     }
 
+    File fileJson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
 }
