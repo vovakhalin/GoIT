@@ -2,20 +2,25 @@ package HomeworkThree;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.FileReader;
 
 public class Demo {
 
     public static void main(String[] args){
+        File fileTelephon = new File("src/main/java/HomeworkThree/Files/file.txt");
+        printTelephon(fileTelephon);
 
-        File file = new File("src/main/java/HomeworkThree/Files/file.txt");
-        if(file.exists()) {
+        File fileGson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
+        List<Person> persons = readFromFile(fileGson);
+        writeToJson(persons, "src/main/java/HomeworkThree/Files/user.json");
+    }
+
+    public static void printTelephon(File name) {
+        if(name.exists()) {
 
             String regexOne = "^\\(\\d{3}\\) \\d{3}-\\d{4}$";
             String regexTwo = "^\\d{3}-\\d{3}-\\d{4}$";
@@ -23,7 +28,7 @@ public class Demo {
             Pattern patternOne = Pattern.compile(regexOne);
             Pattern patternTwo = Pattern.compile(regexTwo);
 
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(name))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     Matcher matcher1 = patternOne.matcher(line);
@@ -39,27 +44,44 @@ public class Demo {
         } else {
             System.out.println("File doesn't exist");
         }
+    }
+    public static List<Person> readFromFile(File name) {
+        List<Person> users = new ArrayList<>();
 
-        File fileGson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
+        if(name.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(name))) {
+                String line;
+                boolean firstLine = true;
+                String[] headers = null;
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        if(fileGson.exists()) {
-            try (BufferedReader br2 = new BufferedReader(new FileReader(fileGson))) {
-                String line2;
-                while ((line2 = br2.readLine()) != null) {
-
-                        System.out.println(line2);
+                while ((line = br.readLine()) != null) {
+                    if(firstLine) {
+                        headers = line.split(" ");
+                        firstLine = false;
+                    } else {
+                        String[] userData = line.split(" ");
+                        if (userData.length == headers.length) {
+                            users.add(new Person(userData[0], Integer.parseInt(userData[1])));
+                        }
                     }
+
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//            return users;
         } else {
             System.out.println("File doesn't exist");
         }
-
-
+        return users;
     }
-
+    public static void writeToJson(List<Person> users, String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(users, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
