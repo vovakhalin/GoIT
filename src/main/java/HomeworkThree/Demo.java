@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Demo {
 
@@ -17,6 +19,13 @@ public class Demo {
         File fileGson = new File("src/main/java/HomeworkThree/Files/file_2.txt");
         List<Person> persons = readFromFile(fileGson);
         writeToJson(persons, "src/main/java/HomeworkThree/Files/user.json");
+
+        File fileWords = new File("src/main/java/HomeworkThree/Files/words.txt");
+
+        Map<String, Integer> wordFrequency = countWord(fileWords);
+        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
     }
 
     public static void printTelephon(File name) {
@@ -69,7 +78,6 @@ public class Demo {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            return users;
         } else {
             System.out.println("File doesn't exist");
         }
@@ -83,5 +91,25 @@ public class Demo {
             e.printStackTrace();
         }
     }
+
+    public static Map<String, Integer> countWord(File name) {
+        Map<String, Integer> wordFrequency = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(name))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split(" ");
+                for (String word : words) {
+                    if (!word.isEmpty()) {
+                        wordFrequency.put(word, wordFrequency.getOrDefault(word, 0) + 1);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return wordFrequency;
+    }
+
+
 
 }
