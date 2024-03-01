@@ -3,12 +3,9 @@ package HomeworkThree;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Demo {
 
@@ -21,9 +18,10 @@ public class Demo {
         writeToJson(persons, "src/main/java/HomeworkThree/Files/user.json");
 
         File fileWords = new File("src/main/java/HomeworkThree/Files/words.txt");
-
         Map<String, Integer> wordFrequency = countWord(fileWords);
-        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+        List<Map.Entry<String, Integer>> sortedList = sortByValue(wordFrequency);
+
+        for (Map.Entry<String, Integer> entry : sortedList) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
@@ -109,7 +107,16 @@ public class Demo {
         }
         return wordFrequency;
     }
-
+    public static List<Map.Entry<String, Integer>> sortByValue(Map<String, Integer> wordFrequency) {
+        List<Map.Entry<String, Integer>> sortedList = new LinkedList<>(wordFrequency.entrySet());
+        Collections.sort(sortedList, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        return sortedList;
+    }
 
 
 }
