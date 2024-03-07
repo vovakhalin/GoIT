@@ -1,7 +1,5 @@
 package Module12;
 
-import javax.swing.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Demo {
@@ -16,6 +14,7 @@ public class Demo {
                         Thread.sleep(1000);
                     }
                 } catch (Exception e) {
+
                 }
             }
         }).start();
