@@ -5,12 +5,13 @@ import java.util.Date;
 public class Demo {
     public static void main(String[] args) throws InterruptedException {
         new Thread(new Runnable() {
+            long currentDate = System.currentTimeMillis() - 1000;
             @Override
             public void run() {
                 for (int i = 0; i < 20; i++) { //цикл зробив, щоб зупинитись через 20с.
                     try {
-                            Date d = new Date();
-                            System.out.println(d);
+                        long d = System.currentTimeMillis();
+                            System.out.println((d - currentDate)/1000);
                             Thread.sleep(1000);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
