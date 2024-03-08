@@ -20,8 +20,8 @@ public class Thread_D extends Thread {
             }
 
         }
-        if (resourse.line.size() == resourse.getN()) {
-            String result = resourse.queueToString(resourse.line);
+        if (resourse.lineFinale.size() == resourse.getN()) {
+            String result = resourse.queueToString(resourse.lineFinale);
             System.out.println(result);
         }
     }

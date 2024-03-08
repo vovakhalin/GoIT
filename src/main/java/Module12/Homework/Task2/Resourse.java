@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class Resourse {
     public Queue<Integer> sharedResource = new LinkedList<>();
-    public Queue<String> line = new LinkedList<>();
+    public Queue<String> lineFinale = new LinkedList<>();
     private final int n;
 
     public int getN() {
@@ -27,7 +27,7 @@ public class Resourse {
         }
         if(!sharedResource.isEmpty()) {
             Integer item = sharedResource.remove();
-            line.add(Integer.toString(item));
+            lineFinale.add(Integer.toString(item));
 //            System.out.println("number : " + item);
             notifyAll();
         }
@@ -38,7 +38,7 @@ public class Resourse {
         }
         if(!sharedResource.isEmpty() && sharedResource.peek() % 5 != 0) {
             Integer item = sharedResource.remove();
-            line.add("fizz");
+            lineFinale.add("fizz");
 //            System.out.println("fizz : " + item);
             notifyAll();
         }
@@ -49,7 +49,7 @@ public class Resourse {
         }
         if(!sharedResource.isEmpty() && sharedResource.peek() % 15 != 0) {
             Integer item = sharedResource.remove();
-            line.add("buzz");
+            lineFinale.add("buzz");
 //            System.out.println("buzz : " + item);
             notifyAll();
         }
@@ -60,7 +60,7 @@ public class Resourse {
         }
         if(!sharedResource.isEmpty()) {
             Integer item = sharedResource.remove();
-            line.add("fizzbuzz");
+            lineFinale.add("fizzbuzz");
 //            System.out.println("fizzbuzz : " + item);
             notifyAll();
         }
