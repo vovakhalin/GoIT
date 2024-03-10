@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Resourse {
+    public Queue<Integer> getSharedResource() {
+        return sharedResource;
+    }
+
     public Queue<Integer> sharedResource = new LinkedList<>();
     public Queue<String> lineFinale = new LinkedList<>();
     private final int n;
