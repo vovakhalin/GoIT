@@ -12,8 +12,4 @@ public class Geo {
     private Integer lat;
     private Integer lng;
 
-    public Geo(Integer lat, Integer lng) {
-        this.lat = lat;
-        this.lng = lng;
-    }
 }

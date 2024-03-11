@@ -1,8 +1,10 @@
 package Module13;
 
 import Module13.Customer.Address;
+import Module13.Customer.Company;
 import Module13.Customer.CustomerResponseDto;
 import Module13.Customer.Geo;
+import com.google.gson.GsonBuilder;
 import lombok.SneakyThrows;
 import com.google.gson.Gson;
 import lombok.Builder;
@@ -14,13 +16,13 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import static jdk.internal.classfile.Classfile.build;
-//import Module13.Customer.CustomerRequestDto;
 
 public class Demo {
-    public static final String BASE_URL = "https://jsonplaceholder.typicode.com/users";
+    public static final String BASE_URL = "https://jsonplaceholder.typicode.com";
     @SneakyThrows
     public static void main(String[] args) {
         HttpClient httpClient = HttpClient.newHttpClient();
+        Gson gsonMapper = new GsonBuilder().setPrettyPrinting().create();
 
         CustomerResponseDto customerResponseDto = new CustomerResponseDto(
                 15L,
@@ -34,9 +36,23 @@ public class Demo {
                 ),
                 "1223565585",
                 "https://jsonplaceholder.typicode.com/",
-                List.of("Coca-cola","Hello world", "sdfsdg")
+                List.of(
+                        new Company("Coca-cola","Hello world", "sdfsdg")
+                )
+
         );
 
+        String customerJson = gsonMapper.toJson(customerResponseDto);
+//        System.out.println(customerJson);
 
+        HttpRequest createCustomerRequest = HttpRequest.newBuilder(new URI(BASE_URL + "/users"))
+                .POST(HttpRequest.BodyPublishers.ofString(customerJson))
+                .header("accept", "application/json")
+                .header("Content-type", "application/json")
+                .build();
+        HttpResponse<String> customerResponse = httpClient.send(createCustomerRequest, HttpResponse.BodyHandlers.ofString());
+        System.out.println("customerResponse.statusCode() = " + customerResponse.statusCode());
+        CustomerResponseDto customerDto = gsonMapper.fromJson(customerResponse.body(), CustomerResponseDto.class);
+        System.out.println(customerDto);
     }
 }
