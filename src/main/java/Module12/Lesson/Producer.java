@@ -1,9 +1,9 @@
 package Module12.Lesson;
 
 public class Producer extends Thread {
-    private Resource2 resource;
+    private Resource resource;
 
-    public Producer(Resource2 resource) {
+    public Producer(Resource resource) {
         this.resource = resource;
     }
 

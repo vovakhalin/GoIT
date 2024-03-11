@@ -1,9 +1,9 @@
 package Module12.Lesson;
 
 public class Consumer extends Thread{
-    private Resource2 resource;
+    private Resource resource;
 
-    public Consumer(Resource2 resource) {
+    public Consumer(Resource resource) {
         this.resource = resource;
     }
 
